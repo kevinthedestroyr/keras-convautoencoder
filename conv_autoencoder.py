@@ -21,7 +21,10 @@ def load_data():
 
 def build_model(nb_filters=32, nb_pool=2, nb_conv=3):
     model = models.Sequential()
-    d = Dense(30)
+    num_dense_inputs = nb_filters*14*14
+    dense_W = np.ones((num_dense_inputs, 1))
+    dense_b = np.zeros((1,))
+    d = Dense(1, weights=[dense_W, dense_b], trainable=False)
     c = Convolution2D(nb_filters, nb_conv, nb_conv, border_mode='same', input_shape=(1, 28, 28))
     mp =MaxPooling2D(pool_size=(nb_pool, nb_pool))
     # =========      ENCODER     ========================
